@@ -22,6 +22,7 @@ use piston::{
 
 fn main() {
     let mut window = GameWindowSDL2::new(
+        piston::shader_version::opengl::OpenGL_3_2,
         GameWindowSettings {
             title: "Image".to_string(),
             size: [300, 300],
@@ -38,7 +39,8 @@ fn main() {
             updates_per_second: 120,
             max_frames_per_second: 60,
         };
-    let ref mut g = Gfx2d::new();
+    let (mut device, _) = window.gfx();
+    let ref mut g = Gfx2d::new(&mut device);
     for e in GameIterator::new(&mut window, &game_iter_settings) {
         match e {
             Render(args) => {
